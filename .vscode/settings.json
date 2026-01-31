@@ -1,0 +1,7 @@
+{
+  "files.refactoring.autoSave": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "explorer.fileNesting.enabled": false,
+  "explorer.fileNesting.expand": true,
+  "explorer.compactFolders": false
+}
