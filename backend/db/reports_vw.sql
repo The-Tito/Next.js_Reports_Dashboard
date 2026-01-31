@@ -112,7 +112,7 @@ HAVING COUNT(od.id) > 5;
 -- ============================================
 
 
-CREATE OR REPLACE VIEW view_gasto_total_por_usuario_CTE AS
+CREATE OR REPLACE VIEW view_gasto_total_por_usuario_cte AS
 WITH VentasTotales AS (
 SELECT 
     o.usuario_id,
