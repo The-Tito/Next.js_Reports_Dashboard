@@ -1,115 +1,67 @@
 -- ============================================
--- SEED.SQL - Datos Iniciales
--- ============================================
--- Seed: Selvas De Leon Luis Antonio
--- Fecha: 31.01.2026
--- ============================================
--- ORDEN DE INSERCIÓN:
--- 1. Catálogos (sin dependencias)
--- 2. Entidades principales
--- 3. Relaciones/transacciones
+-- SEED FINAL: Luis Antonio - Lab Reportes
 -- ============================================
 
--- ============================================
--- 1. CATÁLOGOS
--- ============================================
+-- Limpieza total con reinicio de IDs
+TRUNCATE orden_detalles, ordenes, productos, usuarios, categorias RESTART IDENTITY CASCADE;
 
+-- 1. CATEGORÍAS
 INSERT INTO categorias (nombre, descripcion) VALUES
-    ('Electrónica', 'Dispositivos electrónicos y accesorios'),
-    ('Ropa', 'Vestimenta y accesorios de moda'),
-    ('Hogar', 'Artículos para el hogar y decoración'),
-    ('Deportes', 'Equipamiento y ropa deportiva'),
-    ('Libros', 'Libros físicos y digitales');
+    ('Electrónica', 'Gadgets y computadoras de alta gama'),
+    ('Ropa', 'Moda urbana y deportiva'),
+    ('Hogar', 'Muebles y artículos de oficina'),
+    ('Libros', 'Literatura técnica y ciencia ficción');
 
--- ============================================
--- 2. ENTIDADES PRINCIPALES
--- ============================================
-
--- Usuarios (mínimo 6)
+-- 2. USUARIOS (Añadimos más para probar paginación en Reporte 4)
 INSERT INTO usuarios (email, nombre, password_hash) VALUES
-    ('ada@example.com', 'Ada Lovelace', 'hash_placeholder_1'),
-    ('alan@example.com', 'Alan Turing', 'hash_placeholder_2'),
-    ('grace@example.com', 'Grace Hopper', 'hash_placeholder_3'),
-    ('linus@example.com', 'Linus Torvalds', 'hash_placeholder_4'),
-    ('margaret@example.com', 'Margaret Hamilton', 'hash_placeholder_5'),
-    ('donald@example.com', 'Donald Knuth', 'hash_placeholder_6');
+    ('ada@tech.com', 'Ada Lovelace', 'hash_1'),
+    ('alan@turing.com', 'Alan Turing', 'hash_2'),
+    ('grace@hopper.com', 'Grace Hopper', 'hash_3'),
+    ('linus@linux.org', 'Linus Torvalds', 'hash_4'),
+    ('margaret@nasa.gov', 'Margaret Hamilton', 'hash_5'),
+    ('donald@knuth.edu', 'Donald Knuth', 'hash_6'),
+    ('steve@woz.com', 'Steve Wozniak', 'hash_7'),
+    ('bill@gates.com', 'Bill Gates', 'hash_8'),
+    ('jeff@bezos.com', 'Jeff Bezos', 'hash_9');
 
--- Productos (mínimo 5 por categoría importante)
-INSERT INTO productos (codigo, nombre, descripcion, precio, stock, categoria_id) VALUES
-    -- Electrónica (categoria_id = 1)
-    ('ELEC-001', 'Laptop Pro 15"', 'Laptop de alto rendimiento', 1299.99, 50, 1),
-    ('ELEC-002', 'Mouse Inalámbrico', 'Mouse ergonómico Bluetooth', 29.99, 200, 1),
-    ('ELEC-003', 'Teclado Mecánico', 'Teclado RGB switches azules', 89.99, 75, 1),
-    ('ELEC-004', 'Monitor 27"', 'Monitor 4K IPS', 399.99, 30, 1),
-    ('ELEC-005', 'Webcam HD', 'Cámara 1080p con micrófono', 59.99, 100, 1),
-    
-    -- Ropa (categoria_id = 2)
-    ('ROPA-001', 'Camiseta Básica', 'Camiseta 100% algodón', 19.99, 500, 2),
-    ('ROPA-002', 'Jeans Clásico', 'Pantalón de mezclilla', 49.99, 200, 2),
-    ('ROPA-003', 'Sudadera Tech', 'Sudadera con capucha', 39.99, 150, 2),
-    ('ROPA-004', 'Zapatos Casual', 'Calzado cómodo diario', 69.99, 100, 2),
-    ('ROPA-005', 'Gorra Deportiva', 'Gorra ajustable', 14.99, 300, 2),
-    
-    -- Hogar (categoria_id = 3)
-    ('HOME-001', 'Lámpara LED', 'Lámpara de escritorio regulable', 34.99, 80, 3),
-    ('HOME-002', 'Silla Ergonómica', 'Silla de oficina ajustable', 249.99, 25, 3),
-    ('HOME-003', 'Organizador', 'Set de organizadores', 24.99, 120, 3),
-    ('HOME-004', 'Planta Artificial', 'Decoración verde', 19.99, 200, 3),
-    ('HOME-005', 'Cuadro Decorativo', 'Arte moderno 50x70cm', 44.99, 60, 3);
-
--- ============================================
--- 3. TRANSACCIONES/RELACIONES
--- ============================================
-
--- Órdenes
-INSERT INTO ordenes (usuario_id, total, status) VALUES
-    (1, 1389.97, 'entregado'),    -- Ada compró laptop + mouse + teclado
-    (2, 69.98, 'enviado'),         -- Alan compró 2 camisetas + webcam (ajustado)
-    (3, 284.98, 'pagado'),         -- Grace compró silla + lámpara
-    (4, 99.98, 'pendiente'),       -- Linus compró jeans + sudadera
-    (5, 1299.99, 'pagado'),        -- Margaret compró laptop
-    (6, 399.99, 'pagado');         -- Donald compró monitor
-
--- Detalle de órdenes
-INSERT INTO orden_detalles (orden_id, producto_id, cantidad, precio_unitario) VALUES
-    -- Orden 1 de Ada
-    (1, 1, 1, 1299.99),  -- 1 Laptop
-    (1, 2, 1, 29.99),    -- 1 Mouse
-    (1, 3, 1, 89.99),    -- 1 Teclado
-    
-    -- Orden 2 de Alan
-    (2, 6, 2, 19.99),    -- 2 Camisetas
-    (2, 5, 1, 59.99),    -- 1 Webcam (corregido de producto anterior)
-    
-    -- Orden 3 de Grace
-    (3, 12, 1, 249.99),  -- 1 Silla
-    (3, 11, 1, 34.99),   -- 1 Lámpara
-    
-    -- Orden 4 de Linus
-    (4, 7, 1, 49.99),    -- 1 Jeans
-    (4, 8, 1, 39.99),    -- 1 Sudadera
-    
-    -- Orden 5 de Margaret
-    (5, 1, 1, 1299.99),  -- 1 Laptop
-
-    -- Orden 6 de Donald
-    (6, 4, 1, 399.99);   -- 1 Monitor
-
--- ============================================
--- 4. EDGE CASES (para versión 3 horas)
--- ============================================
-
--- Caso: String largo pero válido
-INSERT INTO usuarios (email, nombre, password_hash) VALUES
-    ('usuario.con.email.muy.largo.pero.valido@subdominio.empresa.ejemplo.com', 
-     'Usuario Con Nombre Extremadamente Largo Para Probar Límites', 
-     'hash_muy_largo_12345678901234567890');
-
--- Caso: Valores en el límite
+-- 3. PRODUCTOS
 INSERT INTO productos (codigo, nombre, precio, stock, categoria_id) VALUES
-    ('EDGE-001', 'Producto Gratuito', 0.00, 0, 1);  -- Precio y stock en 0
+    ('E-001', 'MacBook Pro M3', 2500.00, 10, 1),
+    ('E-002', 'Monitor Studio Display', 1600.00, 5, 1),
+    ('E-003', 'iPhone 15 Pro', 1100.00, 15, 1),
+    ('R-001', 'Chaqueta de Cuero', 300.00, 10, 2),
+    ('R-002', 'Tenis Edición Especial', 180.00, 25, 2),
+    ('H-001', 'Escritorio Elevable', 450.00, 8, 3),
+    ('L-001', 'Clean Code', 50.00, 100, 4),
+    ('L-002', 'The Art of Computer Programming', 200.00, 10, 4);
 
--- ============================================
--- FIN DEL SEED
--- ============================================
--- Para ejecutar: \i db/seed.sql
+-- 4. ÓRDENES Y DETALLES (Configuradas para Reporte 1, 4 y Paginación)
+
+-- Usuarios con más de 1500 (Para que aparezcan en los reportes)
+INSERT INTO ordenes (usuario_id, total, status) VALUES 
+(1, 4100.00, 'entregado'), -- Ada
+(2, 2700.00, 'pagado'),    -- Alan
+(5, 2500.00, 'entregado'), -- Margaret
+(7, 1600.00, 'pagado'),    -- Steve
+(8, 1600.00, 'pagado'),    -- Bill
+(9, 1600.00, 'pagado');    -- Jeff
+
+-- Detalles para esas órdenes (Usando producto 1 y 2 para el ranking)
+INSERT INTO orden_detalles (orden_id, producto_id, cantidad, precio_unitario) VALUES 
+(1, 1, 1, 2500.00), (1, 2, 1, 1600.00),
+(2, 2, 1, 1600.00), (2, 3, 1, 1100.00),
+(3, 1, 1, 2500.00),
+(4, 2, 1, 1600.00),
+(5, 2, 1, 1600.00),
+(6, 2, 1, 1600.00);
+
+-- Ventas masivas de "Clean Code" (Producto ID 7) para Reporte 3 (> 5 ventas)
+INSERT INTO ordenes (usuario_id, total, status) VALUES 
+(3, 50.00, 'pagado'), (3, 50.00, 'pagado'), (4, 50.00, 'pagado'), 
+(4, 50.00, 'pagado'), (6, 50.00, 'pagado'), (6, 50.00, 'pagado'), (6, 50.00, 'pagado');
+
+INSERT INTO orden_detalles (orden_id, producto_id, cantidad, precio_unitario) VALUES 
+(7, 7, 1, 50.00), (8, 7, 1, 50.00), (9, 7, 1, 50.00), 
+(10, 7, 1, 50.00), (11, 7, 1, 50.00), (12, 7, 1, 50.00), (13, 7, 1, 50.00);
+
+-- Finalización

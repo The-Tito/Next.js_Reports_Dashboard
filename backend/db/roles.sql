@@ -4,7 +4,7 @@
 
 -- Crear el usuario para la aplicación 
 -- Nota: En un entorno real, la contraseña vendría de una variable de entorno.
-CREATE USER app_user WITH PASSWORD 'password_seguro_123';
+CREATE USER app_user WITH PASSWORD 'app_user123';
 
 -- Permiso para conectar a la base de datos actual
 GRANT CONNECT ON DATABASE postgres TO app_user;

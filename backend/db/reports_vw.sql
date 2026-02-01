@@ -63,7 +63,8 @@ SELECT
 FROM usuarios u 
 LEFT JOIN ordenes o ON u.id = o.usuario_id
 GROUP BY u.id, u.nombre
-HAVING COALESCE(SUM(o.total), 0) > 1500;
+HAVING COALESCE(SUM(o.total), 0) > 1500
+ORDER BY COALESCE(SUM(o.total), 0) DESC;
 
 
 -- VERIFY: Validar que el total y numero de ordenes coincida con el reporte

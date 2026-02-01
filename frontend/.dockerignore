@@ -1,8 +1,13 @@
 
 Dockerfile
 .dockerignore
-node_modules
 npm-debug.log
 README.md
+node_modules
 .next
+out
+build
 .git
+.env
+.env.local
+.DS_Store

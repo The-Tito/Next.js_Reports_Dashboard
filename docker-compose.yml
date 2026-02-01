@@ -3,10 +3,12 @@ services:
     image: postgres:16-alpine
     restart: unless-stopped
     container_name: db_lab-reportes
+    env_file:
+      - .env
     environment:
-      POSTGRES_DB: db_lab
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "127.0.0.1:5432:5432"
     volumes:
@@ -27,8 +29,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      # Se utilizara el usuario credo con los permisos limitados.
-      - DATABASE_URL: "postgresql://app_user:app_user123@db:5432/db_lab"
+      DATABASE_URL: ${DATABASE_URL} # Se utilizara el usuario creado con los permisos limitados.
     depends_on:
       db:
         condition: service_healthy # Espera a que la DB esté lista para recibir conexiones
