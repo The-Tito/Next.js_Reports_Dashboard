@@ -17,22 +17,9 @@ Este proyecto es una aplicación web full-stack diseñada para la visualización
 
 ### 🚀 Instrucciones de Inicio Rápido (One-Step Setup)
 
-Copia y pega el siguiente bloque en tu terminal dentro de la carpeta raíz del proyecto. Este comando creará el archivo de configuración y levantará los servicios automáticamente:
-
 ```bash
-# 1. Crear el archivo .env automáticamente
-cat <<EOF > .env
-POSTGRES_DB=db_lab
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres123
-DB_HOST=db
-DB_PORT=5432
-DB_NAME=db_lab
-DB_USER=app_user
-DB_PASSWORD=app_user123
-DATABASE_URL=postgresql://app_user:app_user123@db:5432/db_lab
-EOF
-
+# 1. Crear el archivo .env
+# Se agrega un .env de ejemplo, se debera adaptar al cada caso.
 # 2. Levantar la infraestructura
 docker compose up --build -d
 ```
@@ -55,7 +42,7 @@ El sistema cuenta con 5 reportes estratégicos consumidos exclusivamente a trav�
 
 ## 🛡️ Seguridad y Buenas Prácticas
 
-- **Principio de Menor Privilegio:** La aplicación Next.js se conecta a la base de datos mediante el rol `app_user`, el cual solo tiene permisos de `SELECT` sobre las vistas, protegiendo las tablas base.
+- **Principio de Menor Privilegio:** La aplicación Next.js se conecta a la base de datos mediante un rol creado, el cual solo tiene permisos de `SELECT` sobre las vistas, protegiendo las tablas base.
 - **Server Actions:** Toda la lógica de base de datos se ejecuta en el servidor. No se exponen credenciales ni cadenas de conexión al cliente.
 - **Validación de Capas:** Se utiliza **Zod** para interceptar parámetros de URL malformados antes de que lleguen a la capa de persistencia.
 - **Renderizado Dinámico:** Se forzó el uso de `force-dynamic` en rutas de reportes para garantizar datos frescos y evitar errores de conexión durante el build de Docker.
